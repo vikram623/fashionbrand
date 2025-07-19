@@ -1,60 +1,80 @@
-import React, { useEffect, useState } from 'react'
-import "../CSS/Login.css"
-import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-function Login() {
-  let [login, setlogin] = useState([])
+
+function Password() {
   let go=useNavigate()
+
+  let [inpassword, setpassword] = useState([])
   let inputvalue = (e) => {
-    setlogin({
-      ...login, [e.target.name]: e.target.value
+    setpassword({
+      ...inpassword, [e.target.name]: e.target.value
     })
   }
 
-  // allusers
-  let [already, setalready] = useState()
+  // 
 
+  // allusers
+
+  let [already, setalready] = useState([])
   useEffect(() => {
     alluser()
   }, [])
 
+  // console.log(already)
+
   let alluser = () => {
     axios.get("http://localhost:5000/allusers").then((res) => {
-      if (res.data.status) {
-        setalready(res.data.ouruser)
-      }
+      setalready(res.data.ouruser)
     }).catch((err) => {
       console.log(err)
     })
   }
 
-  let loginbtn = () => {
-    let existuser = already.filter(data => data.email == login.email)
-    let ouruser = existuser[0]
-    if(!ouruser){
-      Swal.fire({
-                      icon: "error",
-                      title: "Not a user",
-                  });
+  let forgotbtn = () => {
+    let filterdata = already.filter(data => data.email == inpassword.email)
+    let currentuser = filterdata[0]
 
+    if ((!currentuser)) {
+     Swal.fire({
+            icon: "error",
+            title:  "Not a user",
+          });
     }
-    else if (ouruser.email == login.email && ouruser.password == login.password) {
-      Swal.fire({
-        title: "Login Success",
-        icon: "success"
-      });
-      go("/Home")
-    }
-    else{
+
+
+    else if (inpassword.password !== inpassword.conformpassword) {
        Swal.fire({
-                      icon: "error",
-                      title: "Invalid",
-                  });
+            icon: "error",
+            title: "Password not matched",
+          });
     }
+    else {
+      axios.post("http://localhost:5000/forgetpassword", { currentuser, inpassword }).then((res) => {
+        if (res.data.status) {
+
+        Swal.fire({
+            title: res.data.msg,
+            icon: "success"
+          });
+
+          go("/")
+        }
+        else {
+          Swal.fire({
+            icon: "error",
+            title:  res.data.msg,
+          });
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
   }
   return (
-    <>
+    <div>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 login-main">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           {/* <img
@@ -63,7 +83,7 @@ function Login() {
             className="mx-auto h-10 w-auto"
           /> */}
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Login to your account
+            Forgot Your Password
           </h2>
         </div>
 
@@ -74,7 +94,8 @@ function Login() {
                 Email address
               </label>
               <div className="mt-2">
-                <input onChange={inputvalue}
+                <input
+                  onChange={inputvalue}
                   id="email"
                   name="email"
                   type="email"
@@ -88,16 +109,12 @@ function Login() {
             <div>
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                  Password
+                  New Password
                 </label>
-                <div className="text-sm">
-                  <Link to={"/Password"} className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </Link>
-                </div>
               </div>
               <div className="mt-2">
-                <input onChange={inputvalue}
+                <input
+                  onChange={inputvalue}
                   id="password"
                   name="password"
                   type="password"
@@ -109,24 +126,38 @@ function Login() {
             </div>
 
             <div>
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
+                  Conform Password
+                </label>
+              </div>
+              <div className="mt-2">
+                <input
+                  onChange={inputvalue}
+                  id="newpassword"
+                  name="conformpassword"
+                  type="password"
+                  required
+                  autoComplete="current-password"
+                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                />
+              </div>
+            </div>
+
+            <div>
               <button
-                onClick={loginbtn}
+                onClick={forgotbtn}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Login
+                Forgot Password
               </button>
             </div>
           </div>
 
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            <Link to={"/Signup"} className="font-semibold text-indigo-600 hover:text-indigo-500">
-              Sign up
-            </Link>
-          </p>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
-export default Login
+export default Password
