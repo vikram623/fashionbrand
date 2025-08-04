@@ -18,7 +18,7 @@
 //  console.log(productname)
 
 //     let addreview = () => {
-//         axios.post("https://fashionbrandbackend-b71e.vercel.app/apireview", { reviewdata, product_id }).then((res) => {
+//         axios.post("http://localhost:5000/apireview", { reviewdata, product_id }).then((res) => {
 //             if (res.data.status) {
 //                 Swal.fire({
 //                     title: res.data.msg,
@@ -45,7 +45,7 @@
 // let [userreview,setuserreview]=useState([])
 // // console.log(userreview)
 //     let allreviews=()=>{
-//         axios.get("https://fashionbrandbackend-b71e.vercel.app/allreviews").then((res)=>{
+//         axios.get("http://localhost:5000/allreviews").then((res)=>{
 //              console.log(res)
 //             // if(res.data.status){
      

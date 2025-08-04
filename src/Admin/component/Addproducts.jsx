@@ -18,7 +18,7 @@ function Addproducts() {
     console.log(productdata)
     // add product api
     let addproduct = () => {
-        axios.post("https://fashionbrandbackend-b71e.vercel.app/addproduct", { productdata }).then((res) => {
+        axios.post("http://localhost:5000/addproduct", { productdata }).then((res) => {
             if (res.data.status) {
                 Swal.fire({
                     title: res.data.msg,
