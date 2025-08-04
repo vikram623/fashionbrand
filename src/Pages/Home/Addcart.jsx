@@ -2,22 +2,20 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Footer from './Footer'
 import Navbar from './Navbar'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
+
 
 function Addcart() {
   let [cartitem, setcartitem] = useState([])
 
-  let productquantity = cartitem.productquatity
-  // console.log(productquantity)
-  let [qunatityitem, setqunatityitem] = useState(productquantity)
-
-  let increagequantity = () => {
-    setqunatityitem(++qunatityitem)
-  }
-  let decreagequantity = () => {
-    setqunatityitem(--qunatityitem)
-  }
-
-  // console.log(qunatityitem)
+  let go = useNavigate()
+ 
+   let productdetail = (info) => {
+     go("/Productdetails",
+       { state: info }
+     )
+   }
 
   useEffect(() => {
     allcartproduct()
@@ -33,13 +31,81 @@ function Addcart() {
     })
   }
 
-  // console.log(cartitem)
-  let removeFromCart = (id) => {
-    axios.delete("http://localhost:5000//cart/:id").then(() => {
-      setCartItems((prev) => prev.filter((item) => item._id !== id));
-    }).catch((err) => console.error(err));
-  };
 
+  // checkout the product
+    let checkoutitem = (info) => {
+     go("/CheckoutPage",
+       { state: info }
+     )
+   }
+
+
+  let Cartitems = ({data}) => {
+  // console.log(data)
+  
+
+    let [qunatityitem, setqunatityitem] = useState(data.productquatity)
+
+    let increagequantity = () => {
+      setqunatityitem(++qunatityitem)
+      axios.post("http://localhost:5000/cartquantity",{qunatityitem,data})
+    }
+    let decreagequantity = () => {
+      if(qunatityitem>1){
+        setqunatityitem(--qunatityitem)     
+      }
+      axios.post("http://localhost:5000/cartquantity",{qunatityitem,data})
+    }
+
+    // removercartitem-----------------------------
+    let removercartitem = (item) => {
+      axios.post("http://localhost:5000/removecartitem", item).then((res) => {
+        if (res.data.status) {
+          Swal.fire({
+            title: "Delete item Success",
+            icon: "success"
+          });
+
+          window.location.reload()
+        }
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+
+
+  
+
+
+    // calculate total amount
+    return (
+      <>
+       {/* <!-- Single Cart Item --> */}
+        <div className="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row items-center justify-between">
+          {/* <!-- Product Info --> */}
+          <div className="flex items-center gap-4">
+            <img src={data.productimage} onClick={()=>productdetail(data)} alt="Product" className="w-24 h-24 object-cover rounded" />
+            <div>
+              <h2 className="text-lg font-semibold">{data.productname}</h2>
+              <p className="text-gray-600 text-sm">{data.category}</p>
+              <p className="text-green-600 font-bold mt-2">₹{data.productprice*qunatityitem}</p>
+            </div>
+          </div>
+
+          {/* <!-- Quantity & Remove --> */}
+          <div className="mt-4 md:mt-0 flex items-center gap-4">
+            <div className="w-20 border border-gray-300 rounded px-2 py-1 text-center">
+              <button className='text-xl' onClick={decreagequantity}>-</button>
+              <span className="px-2">{qunatityitem}</span>
+              <button className="text-xl" onClick={increagequantity}>+</button>
+            </div>
+
+            <button className="text-red-600 hover:underline" onClick={() => removercartitem(data)}><i className="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+      </>
+    )
+  }
 
 
   return (
@@ -60,36 +126,7 @@ function Addcart() {
             cartitem.map((item) => {
               return (
                 <>
-                  {/* <!-- Single Cart Item --> */}
-                  <div className="bg-white shadow rounded-lg p-4 flex flex-col md:flex-row items-center justify-between">
-                    {/* <!-- Product Info --> */}
-                    <div className="flex items-center gap-4">
-                      <img src={item.productimage} alt="Product" className="w-24 h-24 object-cover rounded" />
-                      <div>
-                        <h2 className="text-lg font-semibold">{item.productname}</h2>
-                        <p className="text-gray-600 text-sm">{item.category}</p>
-                        <p className="text-green-600 font-bold mt-2">₹{item.productprice}</p>
-                      </div>
-                    </div>
-
-                    {/* <!-- Quantity & Remove --> */}
-                    <div className="mt-4 md:mt-0 flex items-center gap-4">
-                      <input
-                        name="quantityproduct"
-                        type="number"
-                        min="1"
-                        value={item.productquatity}
-                        className="w-16 border border-gray-300 rounded px-2 py-1 text-center"
-                      />
-
-                      <button className="text-red-600 hover:underline"
-                        onClick={() => {
-                          removeFromCart(item._id);
-                          window.location.reload();
-                        }}
-                      ><i className="fa-solid fa-trash"></i></button>
-                    </div>
-                  </div>
+                  <Cartitems data={item} />
                 </>
               )
             })
@@ -106,10 +143,10 @@ function Addcart() {
         <div className="mt-10 bg-white shadow rounded-lg p-6 md:flex items-center justify-between">
           <div className="text-lg">
             <p className="font-medium">Total Items: <span className="font-bold">{cartitem.length}</span></p>
-            <p className="font-medium mt-2">Total <span claPrice:ssName="text-green-600 font-bold">₹1,32,597</span></p>
+            <p className="font-medium mt-2">Total <span className="text-green-600 font-bold">₹1,32,597</span></p>
           </div>
           <div className="mt-4 md:mt-0">
-            <button className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition">Proceed to Checkout</button>
+            <button className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition" onClick={()=>checkoutitem(cartitem)}>Proceed to Checkout</button>
           </div>
         </div>
       </div>

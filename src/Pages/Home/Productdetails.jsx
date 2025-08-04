@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { StarIcon } from '@heroicons/react/20/solid'
 import { Radio, RadioGroup } from '@headlessui/react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import Navbar from './Navbar'
@@ -19,6 +19,8 @@ export default function Productdetails() {
   let loc = useLocation()
   const productintem = loc.state
   let product_id = productintem._id
+  let productname=productintem.productname
+  console.log(productintem.productname)
 
 
   let [imgcng, setimgcng] = useState(loc.state.productimage)
@@ -66,7 +68,7 @@ export default function Productdetails() {
   // console.log(review)
 
   let addreview = () => {
-    axios.post("http://localhost:5000/productreview", { review, product_id }).then((res) => {
+    axios.post("http://localhost:5000/productreview", { review, product_id,productname }).then((res) => {
       if (res.data.status) {
         Swal.fire({
           title: "Review Submit",
@@ -75,7 +77,7 @@ export default function Productdetails() {
 
         setTimeout(() => {
           window.location.reload()
-        },2000);
+        }, 2000);
       }
     }).catch((err) => {
       console.log(err)
@@ -102,9 +104,42 @@ export default function Productdetails() {
   // console.log(allreviews)
 
 
-  let filterreviews=allreviews.filter(data=>data.productid==product_id)
+  let filterreviews = allreviews.filter(data => data.productid == product_id)
   // console.log(filterdata)
-  
+
+
+
+  // get all product
+  let [productdata, setproductdata] = useState([])
+  useEffect(() => {
+    relatedproducts()
+  }, [])
+  let relatedproducts = () => {
+    axios.get("http://localhost:5000/apiproduct").then((res) => {
+      if (res.data.status) {
+        setproductdata(res.data.ourproduct)
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+  // console.log(productintem.category)
+
+
+  let filteritems=productdata.filter(data=>data.category==productintem.category && data._id!=product_id)||[]
+  let relateditems=filteritems.slice(0,4)
+  // console.log(relateditems)
+
+
+  let productdetail = (info) => {
+    go("/Productdetails",
+      { state: info }
+    )
+    setTimeout(() => {
+      window.location.reload()
+    }, 1000);
+  }
+
   return (
 
     <>
@@ -168,7 +203,7 @@ export default function Productdetails() {
 
           {/* <!-- Action Buttons --> */}
           <div className="flex gap-4 mt-4 flex-wrap">
-            <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Buy Now</button>
+            <Link to="/home"><button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Buy Now</button></Link>
             <button className="bg-green-700 text-white px-6 py-1 rounded hover:bg-green-600 text-white transition" onClick={() => addcart(productintem)}>Add to Cart</button>
             <button className="bg-gray-200 text-gray-800 px-6 py-2 rounded hover:bg-gray-300 transition" onClick={() => wishlistproduct(productintem)}><i className="fa-regular fa-heart"></i></button>
           </div>
@@ -194,8 +229,8 @@ export default function Productdetails() {
                     {/* <!-- Review Card 1 --> */}
                     <div className="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition duration-300">
                       <div className="flex items-center mb-4">
-                        <img src="https://i.pravatar.cc/100?img=1" alt="User" className="w-12 h-12 rounded-full mr-4" />
-                        {/* <div className='w-12 h-12 rounded-full mr-4'>{item.name[0]}</div> */}
+                        {/* <img src="https://i.pravatar.cc/100?img=1" alt="User" className="w-12 h-12 rounded-full mr-4" /> */}
+                        <div className='w-12 h-12 rounded-full bg-green-700 text-align-center mr-4'>{item.name[0]}</div>
                         <div>
                           <p className="text-lg font-semibold text-gray-800 capitalize">{item.name}</p>
                           <div className="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>
@@ -278,37 +313,28 @@ export default function Productdetails() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
 
             {/* <!-- Product Card --> */}
-            <div className="bg-gray-50 border rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
-              <img src="https://via.placeholder.com/300x200" alt="Product 1" className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">Wireless Headphones</h3>
-                <p className="text-blue-600 font-bold mt-2">$59.99</p>
-              </div>
-            </div>
 
-            <div className="bg-gray-50 border rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
-              <img src="https://via.placeholder.com/300x200" alt="Product 2" className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">Smart Watch</h3>
-                <p className="text-blue-600 font-bold mt-2">$129.99</p>
-              </div>
-            </div>
 
-            <div className="bg-gray-50 border rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
-              <img src="https://via.placeholder.com/300x200" alt="Product 3" className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">Bluetooth Speaker</h3>
-                <p className="text-blue-600 font-bold mt-2">$39.99</p>
-              </div>
-            </div>
+            {relateditems.map((related) => {
+              return (
+                <>
+                  <div className="bg-gray-50 border rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300" onClick={()=>productdetail(related)}>
+                  <div className='w-full'>
+                    <img src={related.productimage} alt="Product 1" className="w-full h-auto object-contain" />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="text-lg font-semibold text-gray-800"> {related.productname}</h3>
+                      <p className="text-green-600 font-bold mt-2">₹{related.productprice}</p>
+                    </div>
+                  </div>
+                </>
+              )
+            })}
 
-            <div className="bg-gray-50 border rounded-xl overflow-hidden shadow hover:shadow-lg transition duration-300">
-              <img src="https://via.placeholder.com/300x200" alt="Product 4" className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-gray-800">Power Bank</h3>
-                <p className="text-blue-600 font-bold mt-2">$24.99</p>
-              </div>
-            </div>
+
+
+
+
 
           </div>
         </div>

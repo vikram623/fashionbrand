@@ -1,27 +1,46 @@
 import React, { useState } from 'react'
 import Navbar from '../../Pages/Home/Navbar'
 import Footer from '../../Pages/Home/Footer'
+import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 function Editproduct() {
+    
+let loc=useLocation()
 
 
-
-  let [productdata, setproductdata] = useState([])
+    let [edititem, setedititem] = useState(loc.state)
 
     let inputvalue = (e) => {
-        setproductdata({
-            ...productdata, [e.target.name]: e.target.value
+        setedititem({
+            ...edititem, [e.target.name]: e.target.value
         })
     }
 
-  return (
-  <>
-    <Navbar/>
-  
-  <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 login-main">
+    console.log(edititem)
+
+
+    let editproduct=()=>{
+        axios.post("http://localhost:5000/editprodut",{edititem}).then((res)=>{
+            if(res.data.status){
+                   Swal.fire({
+                        title: "Edit Success",
+                        icon: "success"
+                      });
+            }
+        }).catch((err)=>{
+            console.log(err)
+        })
+    }
+    return (
+        <>
+            <Navbar />
+
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 login-main">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                        Add Product
+                        Edit Product
                     </h2>
                 </div>
 
@@ -37,6 +56,7 @@ function Editproduct() {
                                     type="text"
                                     required
                                     className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                                    value={edititem.productname}
                                 />
                             </div>
                         </div>
@@ -47,6 +67,7 @@ function Editproduct() {
                             </label>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                value={edititem.productprice}
                                     name="productprice"
                                     type="number"
                                     required
@@ -62,6 +83,7 @@ function Editproduct() {
                             </label>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                value={edititem.regularproductprice}
                                     name="regularproductprice"
                                     type="number"
                                     required
@@ -78,6 +100,7 @@ function Editproduct() {
                             </div>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                 value={edititem.productimage}
                                     name="productimage"
                                     type="text"
                                     required
@@ -87,7 +110,7 @@ function Editproduct() {
                         </div>
 
 
-                         <div>
+                        <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                                     Product Image 2
@@ -95,6 +118,7 @@ function Editproduct() {
                             </div>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                value={edititem.productimage2}
                                     name="productimage2"
                                     type="text"
                                     required
@@ -103,7 +127,7 @@ function Editproduct() {
                             </div>
                         </div>
 
-                         <div>
+                        <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                                     Product Image 3
@@ -111,6 +135,7 @@ function Editproduct() {
                             </div>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                value={edititem.productimage3}
                                     name="productimage3"
                                     type="text"
                                     required
@@ -128,6 +153,7 @@ function Editproduct() {
                             </div>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                value={edititem.productdes}
                                     name="productdes"
                                     type="text"
                                     required
@@ -145,7 +171,7 @@ function Editproduct() {
                                 </label>
                             </div>
                             <div>
-                                <select onChange={inputvalue} name='category' required>
+                                <select onChange={inputvalue} name='category' required value={edititem.category}>
                                     <option>Select Product Category</option>
                                     <option value={"WomanCloth"}>Woman Cloth</option>
                                     <option value={"FashionAccessories"}>Fashion Accessories</option>
@@ -164,6 +190,7 @@ function Editproduct() {
                             </div>
                             <div className="mt-2">
                                 <input onChange={inputvalue}
+                                value={edititem.productquatity}
                                     name="productquatity"
                                     type="number"
                                     required
@@ -175,6 +202,7 @@ function Editproduct() {
                         <div>
                             <button
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                onClick={editproduct}
                             >
                                 Edit Product
                             </button>
@@ -184,9 +212,9 @@ function Editproduct() {
                 </div>
             </div>
 
-    <Footer/>
-  </>
-  )
+            <Footer />
+        </>
+    )
 }
 
 export default Editproduct

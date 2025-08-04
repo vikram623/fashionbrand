@@ -44,7 +44,9 @@ function Login() {
         title: "Login Success",
         icon: "success"
       });
-      go("/Home")
+      const username=(ouruser.name)
+      
+      go("/Home",{state:username})
     }
     else{
        Swal.fire({

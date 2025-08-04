@@ -29,13 +29,28 @@ function Wishlisting() {
       Swal.fire({
                        title: "AddcartSuccess",
                        icon: "success"
-                   });
+                   })
   go("/Addcart")
   }).catch((err)=>{
     console.log(err)
   })
 }
 
+// removewishlistitem--------------------------------
+let removewishlistitem=(item)=>{
+    axios.post("http://localhost:5000/removewishlistitem",item).then((res)=>{
+        if(res.data.status){
+            Swal.fire({
+                  title: "Delete item Success",
+                  icon: "success"
+                });
+    
+                window.location.reload()
+        }
+      }).catch((err)=>{
+        console.log(err)
+      })
+}
 
     return (
         <>
@@ -76,7 +91,7 @@ function Wishlisting() {
                                                 </td>
                                                 <td className="px-4 py-4 text-center">
                                                    {/* <button className="text-blue-600 hover:underline text-sm mr-4">View</button> */}
-                                                    <button className="text-red-600 hover:underline text-sm"><i class="fa-solid fa-trash"></i></button>
+                                                    <button className="text-red-600 hover:underline text-sm" onClick={()=>removewishlistitem(item)}><i class="fa-solid fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                         </>
@@ -90,8 +105,7 @@ function Wishlisting() {
                     </table>
                 </div>
             </div>
-
-         <Footer/>   
+   <Footer/>
         </>
     )
 }
