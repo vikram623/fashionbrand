@@ -25,7 +25,7 @@ function Password() {
   // console.log(already)
 
   let alluser = () => {
-    axios.get("http://localhost:5000/allusers").then((res) => {
+    axios.get("https://fashionbrandbackend-b71e.vercel.app/allusers").then((res) => {
       setalready(res.data.ouruser)
     }).catch((err) => {
       console.log(err)
@@ -51,7 +51,7 @@ function Password() {
           });
     }
     else {
-      axios.post("http://localhost:5000/forgetpassword", { currentuser, inpassword }).then((res) => {
+      axios.post("https://fashionbrandbackend-b71e.vercel.app/forgetpassword", { currentuser, inpassword }).then((res) => {
         if (res.data.status) {
 
         Swal.fire({

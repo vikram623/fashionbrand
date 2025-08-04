@@ -20,7 +20,7 @@ function Login() {
   }, [])
 
   let alluser = () => {
-    axios.get("http://localhost:5000/allusers").then((res) => {
+    axios.get("https://fashionbrandbackend-b71e.vercel.app/allusers").then((res) => {
       if (res.data.status) {
         setalready(res.data.ouruser)
       }

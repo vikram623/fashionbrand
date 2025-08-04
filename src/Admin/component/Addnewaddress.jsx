@@ -18,7 +18,7 @@ export default function Addnewaddress() {
 
     // add new address
     let addressstore=()=>{
-        axios.post("http://localhost:5000/address",{addressuser}).then((res) => {
+        axios.post("https://fashionbrandbackend-b71e.vercel.app/address",{addressuser}).then((res) => {
                     if (res.data.status) {
                         Swal.fire({
                             title: res.data.msg,
