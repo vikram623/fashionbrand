@@ -15,7 +15,7 @@ const Dashboardreview = () => {
         allreviews()
     }, [])
     let allreviews = () => {
-        axios.get("http://localhost:5000/allreview").then((res) => {
+        axios.get("https://fashionbrandbackend-pg8r.vercel.app/allreview").then((res) => {
             if (res.data.status) {
                 setcustomerreview(res.data.ourreview)
             }
