@@ -6,7 +6,7 @@ function Dashboardsidebar() {
   return (
     <>
                              {/* <!-- Sidebar --> */}
-                        <aside className="w-72 bg-white border-r shadow-md hidden md:flex flex-col justify-between">
+                        <aside className=" w-72 bg-white border-r shadow-md hidden md:flex flex-col justify-between">
                             <div>
                                 <div className="p-6 flex items-center justify-between">
                                     <Link to="/home"><h1 className="text-2xl font-bold text-blue-600">ElectroHut</h1></Link>

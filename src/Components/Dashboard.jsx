@@ -8,7 +8,7 @@ function Dashboard() {
     return (
         <>
             {/* <!DOCTYPE html> */}
-                <div className="bg-gray-100">
+                <div className=" bg-gray-100">
 
                     <div className="min-h-screen flex">
 
