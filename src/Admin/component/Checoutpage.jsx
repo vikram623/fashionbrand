@@ -53,7 +53,7 @@ export default function CheckoutPage() {
     addressuser()
   }, [])
   let addressuser = () => {
-    axios.get("https://fashionbrandbackend-pg8r.vercel.app/addressget").then((res) => {
+    axios.get("https://fashionbrandbackend.vercel.app/addressget").then((res) => {
       if (res.data.status) {
         setcutomeraddress(res.data.ouraddress)
       }

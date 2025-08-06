@@ -14,7 +14,7 @@
 //         alluser()
 //     }, [])
 //     let alluser = () => {
-//         axios.get("https://fashionbrandbackend-pg8r.vercel.app/allusers").then((res) => {
+//         axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
 //             if (res.data.status) {
 //                 setalready(res.data.ouruser)
 //             }
@@ -51,7 +51,7 @@
 
 //         }
 //         else {
-//             axios.post("https://fashionbrandbackend-pg8r.vercel.app/signup", { signupdata }).then((res) => {
+//             axios.post("https://fashionbrandbackend.vercel.app/signup", { signupdata }).then((res) => {
 
 //                 Swal.fire({
 //                     title: "Signup Success",
@@ -197,7 +197,7 @@ function Signup() {
 
 
     let alluser = () => {
-        axios.get("https://fashionbrandbackend-pg8r.vercel.app/allusers").then((res) => {
+        axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
             if (res.data.status) {
                 setalready(res.data.ouruser)
             }
@@ -205,7 +205,7 @@ function Signup() {
             console.log(err)
         })
     }
-    
+
     let [signupdata, setsignupdata] = useState([])
     let inputvalue = (e) => {
         setsignupdata({
@@ -235,7 +235,7 @@ function Signup() {
 
         // }
         // else {
-            axios.post("https://fashionbrandbackend-pg8r.vercel.app/signup", { signupdata }).then((res) => {
+            axios.post("https://fashionbrandbackend.vercel.app/signup", { signupdata }).then((res) => {
 
                 Swal.fire({
                     title: "Signup Success",

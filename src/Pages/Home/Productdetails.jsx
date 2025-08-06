@@ -30,7 +30,7 @@ export default function Productdetails() {
   }
 
   let addcart = (item) => {
-    axios.post("https://fashionbrandbackend-pg8r.vercel.app/addcart", { item }).then((res) => {
+    axios.post("https://fashionbrandbackend.vercel.app/addcart", { item }).then((res) => {
 
 
       Swal.fire({
@@ -45,7 +45,7 @@ export default function Productdetails() {
 
 
   let wishlistproduct = (itemwish) => {
-    axios.post("https://fashionbrandbackend-pg8r.vercel.app/wishlist", { itemwish }).then((res) => {
+    axios.post("https://fashionbrandbackend.vercel.app/wishlist", { itemwish }).then((res) => {
 
       Swal.fire({
         title: "Wishlist Successfully",
@@ -68,7 +68,7 @@ export default function Productdetails() {
   // console.log(review)
 
   let addreview = () => {
-    axios.post("https://fashionbrandbackend-pg8r.vercel.app/productreview", { review, product_id,productname }).then((res) => {
+    axios.post("https://fashionbrandbackend.vercel.app/productreview", { review, product_id,productname }).then((res) => {
       if (res.data.status) {
         Swal.fire({
           title: "Review Submit",
@@ -92,7 +92,7 @@ export default function Productdetails() {
   }, [])
 
   let reviewapidata = () => {
-    axios.get("https://fashionbrandbackend-pg8r.vercel.app/allreview").then((res) => {
+    axios.get("https://fashionbrandbackend.vercel.app/allreview").then((res) => {
       if (res.data.status) {
         setallreviews(res.data.ourreview)
       }
@@ -115,7 +115,7 @@ export default function Productdetails() {
     relatedproducts()
   }, [])
   let relatedproducts = () => {
-    axios.get("https://fashionbrandbackend-pg8r.vercel.app/apiproduct").then((res) => {
+    axios.get("https://fashionbrandbackend.vercel.app/apiproduct").then((res) => {
       if (res.data.status) {
         setproductdata(res.data.ourproduct)
       }

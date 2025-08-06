@@ -22,7 +22,7 @@ let loc=useLocation()
 
 
     let editproduct=()=>{
-        axios.post("https://fashionbrandbackend-pg8r.vercel.app/editprodut",{edititem}).then((res)=>{
+        axios.post("https://fashionbrandbackend.vercel.app/editprodut",{edititem}).then((res)=>{
             if(res.data.status){
                    Swal.fire({
                         title: "Edit Success",
