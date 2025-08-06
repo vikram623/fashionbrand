@@ -206,6 +206,7 @@ function Signup() {
         })
     }
 
+
     let [signupdata, setsignupdata] = useState([])
     let inputvalue = (e) => {
         setsignupdata({
