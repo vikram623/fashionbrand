@@ -193,6 +193,9 @@ function Signup() {
     useEffect(() => {
         alluser()
     }, [])
+
+
+
     let alluser = () => {
         axios.get("https://fashionbrandbackend-pg8r.vercel.app/allusers").then((res) => {
             if (res.data.status) {
@@ -212,25 +215,26 @@ function Signup() {
 
 
     let signupbtn = () => {
-        let filterdata = already.filter(item => item.email == signupdata.email)
-        let exituser = filterdata[0]
-        // console.log(exituser.email)
-        if (!signupdata.name && !signupdata.email && !signupdata.password && !signupdata.number) {
-            Swal.fire({
-                icon: "error",
-                title: "All field are required",
-            });
-        }
+        // let filterdata = already.filter(item => item.email == signupdata.email)
+        // let exituser = filterdata[0]
 
-        else if (exituser) {
+        // // console.log(exituser.email)
+        // if (!signupdata.name && !signupdata.email && !signupdata.password && !signupdata.number) {
+        //     Swal.fire({
+        //         icon: "error",
+        //         title: "All field are required",
+        //     });
+        // }
 
-            Swal.fire({
-                icon: "error",
-                title: "Already Signup",
-            });
+        // else if (exituser) {
 
-        }
-        else {
+        //     Swal.fire({
+        //         icon: "error",
+        //         title: "Already Signup",
+        //     });
+
+        // }
+        // else {
             axios.post("https://fashionbrandbackend-pg8r.vercel.app/signup", { signupdata }).then((res) => {
 
                 Swal.fire({
@@ -242,7 +246,7 @@ function Signup() {
             }).catch((err) => {
                 console.log(err)
             })
-        }
+        // }
 
 
 
