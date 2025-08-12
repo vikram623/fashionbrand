@@ -167,7 +167,7 @@ function Login() {
   }
 
   let loginbtn = () => {
-    let existuser = already.filter(data => data.email == login.email)
+    let existuser = already.filter(data => data.email == login.email) ||[]
     let ouruser = existuser[0]
     if (!ouruser) {
       Swal.fire({

@@ -216,7 +216,7 @@ function Signup() {
 
 
     let signupbtn = () => {
-        let filterdata = already.filter(item => item.email == signupdata.email)
+        let filterdata = already.filter(item => item.email == signupdata.email) || []
         let exituser = filterdata[0]
 
         // console.log(exituser.email)
