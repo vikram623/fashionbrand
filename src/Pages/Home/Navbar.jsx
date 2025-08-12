@@ -73,18 +73,18 @@ const Navbar = () => {
             className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
-          <a href="/home" className="block text-gray-700 hover:text-blue-600">Home</a>
-          <a href="/Dashboard" className="block text-gray-700 hover:text-blue-600">Dashboard</a>
+          <Link to="/home" className="block text-gray-700 hover:text-blue-600">Home</Link>
+          <Link to="/Dashboard" className="block text-gray-700 hover:text-blue-600">Dashboard</Link>
 
           <div className="flex gap-6 mt-2">
-            <a href="/wishlist" className="relative">
+            <Link to="/wishlist" className="relative">
               <Heart className="w-5 h-5 text-gray-700 hover:text-red-500" />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5">2</span>
-            </a>
-            <a href="/cart" className="relative">
+            </Link>
+            <Link to="/cart" className="relative">
               <ShoppingCart className="w-5 h-5 text-gray-700 hover:text-blue-600" />
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs rounded-full px-1.5">3</span>
-            </a>
+            </Link>
           </div>
         </div>
       )}

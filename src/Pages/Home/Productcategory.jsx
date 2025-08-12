@@ -30,7 +30,7 @@ const FeaturedCategories = () => {
   }, [])
 
   let apidata = () => {
-    axios.get("https://fashionbrandbackend.vercel.app/apiproduct").then((res) => {
+    axios.get("http://localhost:5000/apiproduct").then((res) => {
       if (res.data.status) {
         setproductdata(res.data.ourproduct)
       }

@@ -16,7 +16,7 @@ useEffect(()=>{
 },[])
 
 let allcustomer=()=>{
-    axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res)=>{
+    axios.get("http://localhost:5000/allusers").then((res)=>{
         if(res.data.status){
             setcustomer(res.data.ouruser)
         }

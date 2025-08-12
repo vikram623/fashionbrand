@@ -30,7 +30,7 @@ export default function Productdetails() {
   }
 
   let addcart = (item) => {
-    axios.post("https://fashionbrandbackend.vercel.app/addcart", { item }).then((res) => {
+    axios.post("http://localhost:5000/addcart", { item }).then((res) => {
 
 
       Swal.fire({
@@ -45,7 +45,7 @@ export default function Productdetails() {
 
 
   let wishlistproduct = (itemwish) => {
-    axios.post("https://fashionbrandbackend.vercel.app/wishlist", { itemwish }).then((res) => {
+    axios.post("http://localhost:5000/wishlist", { itemwish }).then((res) => {
 
       Swal.fire({
         title: "Wishlist Successfully",
@@ -68,7 +68,7 @@ export default function Productdetails() {
   // console.log(review)
 
   let addreview = () => {
-    axios.post("https://fashionbrandbackend.vercel.app/productreview", { review, product_id,productname }).then((res) => {
+    axios.post("http://localhost:5000/productreview", { review, product_id,productname }).then((res) => {
       if (res.data.status) {
         Swal.fire({
           title: "Review Submit",
@@ -92,7 +92,7 @@ export default function Productdetails() {
   }, [])
 
   let reviewapidata = () => {
-    axios.get("https://fashionbrandbackend.vercel.app/allreview").then((res) => {
+    axios.get("http://localhost:5000/allreview").then((res) => {
       if (res.data.status) {
         setallreviews(res.data.ourreview)
       }
@@ -115,7 +115,7 @@ export default function Productdetails() {
     relatedproducts()
   }, [])
   let relatedproducts = () => {
-    axios.get("https://fashionbrandbackend.vercel.app/apiproduct").then((res) => {
+    axios.get("http://localhost:5000/apiproduct").then((res) => {
       if (res.data.status) {
         setproductdata(res.data.ourproduct)
       }
@@ -230,7 +230,7 @@ export default function Productdetails() {
                     <div className="bg-white p-6 rounded-2xl shadow hover:shadow-xl transition duration-300">
                       <div className="flex items-center mb-4">
                         {/* <img src="https://i.pravatar.cc/100?img=1" alt="User" className="w-12 h-12 rounded-full mr-4" /> */}
-                        <div className='w-12 h-12 rounded-full bg-green-700 text-align-center mr-4'>{item.name[0]}</div>
+                        <div className='w-12 h-12 flex items-center justify-center rounded-full bg-green-700  mr-4'>{item.name[0]}</div>
                         <div>
                           <p className="text-lg font-semibold text-gray-800 capitalize">{item.name}</p>
                           <div className="text-yellow-400 text-sm">⭐⭐⭐⭐⭐</div>

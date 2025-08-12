@@ -19,7 +19,7 @@ function Home() {
 
       <ImageSlider/>
      
-     <FeaturedCategories/>
+     {/* <FeaturedCategories/> */}
    
       <Products/>
        <BlockCardSection/>

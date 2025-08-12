@@ -8,27 +8,32 @@ function Dashboard() {
     return (
         <>
             {/* <!DOCTYPE html> */}
-                <div className=" bg-gray-100">
+            <div className=" bg-gray-100">
+                <button
+                    className="text-2xl text-gray-800 lg:hidden"
+                    // onClick={() => setSidebarOpen(!sidebarOpen)}
+                >
+                    ☰
+                </button>
+                <div className="min-h-screen flex">
 
-                    <div className="min-h-screen flex">
+                    {/* <!-- Sidebar --> */}
 
-                        {/* <!-- Sidebar --> */}
-                   
-                       <Dashboardsidebar/>
+                    <Dashboardsidebar />
 
-                        {/* <!-- Main Content --> */}
-                        <main className="flex-1">
-                        <Dashboardheader/>
+                    {/* <!-- Main Content --> */}
+                    <main className="flex-1">
+                        <Dashboardheader />
 
-                            {/* <!-- Dashboard Content --> */}
-                            
+                        {/* <!-- Dashboard Content --> */}
 
-                            <Dashboardmainpage/>
-                        </main>
-                    </div>
 
+                        <Dashboardmainpage />
+                    </main>
                 </div>
-            
+
+            </div>
+
 
         </>
     )

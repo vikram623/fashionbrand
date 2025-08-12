@@ -14,7 +14,7 @@
 //         alluser()
 //     }, [])
 //     let alluser = () => {
-//         axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
+//         axios.get("http://localhost:5000/allusers").then((res) => {
 //             if (res.data.status) {
 //                 setalready(res.data.ouruser)
 //             }
@@ -51,7 +51,7 @@
 
 //         }
 //         else {
-//             axios.post("https://fashionbrandbackend.vercel.app/signup", { signupdata }).then((res) => {
+//             axios.post("http://localhost:5000/signup", { signupdata }).then((res) => {
 
 //                 Swal.fire({
 //                     title: "Signup Success",
@@ -197,7 +197,7 @@ function Signup() {
 
 
     let alluser = () => {
-        axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
+        axios.get("http://localhost:5000/allusers").then((res) => {
             if (res.data.status) {
                 setalready(res.data.ouruser)
             }
@@ -216,27 +216,27 @@ function Signup() {
 
 
     let signupbtn = () => {
-        // let filterdata = already.filter(item => item.email == signupdata.email)
-        // let exituser = filterdata[0]
+        let filterdata = already.filter(item => item.email == signupdata.email)
+        let exituser = filterdata[0]
 
-        // // console.log(exituser.email)
-        // if (!signupdata.name && !signupdata.email && !signupdata.password && !signupdata.number) {
-        //     Swal.fire({
-        //         icon: "error",
-        //         title: "All field are required",
-        //     });
-        // }
+        // console.log(exituser.email)
+        if (!signupdata.name && !signupdata.email && !signupdata.password && !signupdata.number) {
+            Swal.fire({
+                icon: "error",
+                title: "All field are required",
+            });
+        }
 
-        // else if (exituser) {
+        else if (exituser) {
 
-        //     Swal.fire({
-        //         icon: "error",
-        //         title: "Already Signup",
-        //     });
+            Swal.fire({
+                icon: "error",
+                title: "Already Signup",
+            });
 
-        // }
-        // else {
-            axios.post("https://fashionbrandbackend.vercel.app/signup", { signupdata }).then((res) => {
+        }
+        else {
+            axios.post("http://localhost:5000/signup", { signupdata }).then((res) => {
 
                 Swal.fire({
                     title: "Signup Success",
@@ -247,7 +247,7 @@ function Signup() {
             }).catch((err) => {
                 console.log(err)
             })
-        // }
+        }
 
 
 

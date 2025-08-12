@@ -22,7 +22,7 @@ function Addcart() {
   }, [])
 
   let allcartproduct = () => {
-    axios.get("https://fashionbrandbackend.vercel.app/allcart").then((res) => {
+    axios.get("http://localhost:5000/allcart").then((res) => {
       if (res.data.status) {
         setcartitem(res.data.ourcart)
       }
@@ -48,18 +48,18 @@ function Addcart() {
 
     let increagequantity = () => {
       setqunatityitem(++qunatityitem)
-      axios.post("https://fashionbrandbackend.vercel.app/cartquantity",{qunatityitem,data})
+      axios.post("http://localhost:5000/cartquantity",{qunatityitem,data})
     }
     let decreagequantity = () => {
       if(qunatityitem>1){
         setqunatityitem(--qunatityitem)     
       }
-      axios.post("https://fashionbrandbackend.vercel.app/cartquantity",{qunatityitem,data})
+      axios.post("http://localhost:5000/cartquantity",{qunatityitem,data})
     }
 
     // removercartitem-----------------------------
     let removercartitem = (item) => {
-      axios.post("https://fashionbrandbackend.vercel.app/removecartitem", item).then((res) => {
+      axios.post("http://localhost:5000/removecartitem", item).then((res) => {
         if (res.data.status) {
           Swal.fire({
             title: "Delete item Success",

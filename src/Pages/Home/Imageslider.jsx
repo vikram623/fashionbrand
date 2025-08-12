@@ -33,7 +33,7 @@ const ImageSlider = () => {
 
   return (
     <>
-    <div className="w-screen relative overflow-hidden h-[60vh] my-20">
+    <div className="w-full mb-20 relative overflow-hidden h-[60vh] my-20">
       {/* Image */}
       <img
         src={slides[current].url}

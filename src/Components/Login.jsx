@@ -20,7 +20,7 @@
 //   }, [])
 
 //   let alluser = () => {
-//     axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
+//     axios.get("http://localhost:5000/allusers").then((res) => {
 //       if (res.data.status) {
 //         setalready(res.data.ouruser)
 //       }
@@ -157,7 +157,7 @@ function Login() {
   }, [])
 
   let alluser = () => {
-    axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
+    axios.get("http://localhost:5000/allusers").then((res) => {
       if (res.data.status) {
         setalready(res.data.ouruser)
       }

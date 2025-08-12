@@ -12,7 +12,7 @@ function Wishlisting() {
         wishitemget()
     }, [])
     let wishitemget = () => {
-        axios.get("https://fashionbrandbackend.vercel.app/wishitems").then((res) => {
+        axios.get("http://localhost:5000/wishitems").then((res) => {
             if (res.data.status) {
                 setwishproducts(res.data.ourwishitem)
             }
@@ -23,7 +23,7 @@ function Wishlisting() {
 
 
     let addcart=(item)=>{
-  axios.post("https://fashionbrandbackend.vercel.app/addcart",{item}).then((res)=>{
+  axios.post("http://localhost:5000/addcart",{item}).then((res)=>{
 
 
       Swal.fire({
@@ -38,7 +38,7 @@ function Wishlisting() {
 
 // removewishlistitem--------------------------------
 let removewishlistitem=(item)=>{
-    axios.post("https://fashionbrandbackend.vercel.app/removewishlistitem",item).then((res)=>{
+    axios.post("http://localhost:5000/removewishlistitem",item).then((res)=>{
         if(res.data.status){
             Swal.fire({
                   title: "Delete item Success",
