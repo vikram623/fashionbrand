@@ -188,7 +188,7 @@ function Signup() {
 
 
     // allusers
-    let [already, setalready] = useState()
+    let [already, setalready] = useState([])
 
     useEffect(() => {
         alluser()
