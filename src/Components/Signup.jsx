@@ -14,7 +14,7 @@
 //         alluser()
 //     }, [])
 //     let alluser = () => {
-//         axios.get("http://localhost:5000/allusers").then((res) => {
+//         axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
 //             if (res.data.status) {
 //                 setalready(res.data.ouruser)
 //             }
@@ -51,7 +51,7 @@
 
 //         }
 //         else {
-//             axios.post("http://localhost:5000/signup", { signupdata }).then((res) => {
+//             axios.post("https://fashionbrandbackend.vercel.app/signup", { signupdata }).then((res) => {
 
 //                 Swal.fire({
 //                     title: "Signup Success",
@@ -197,7 +197,7 @@ function Signup() {
 
 
     let alluser = () => {
-        axios.get("http://localhost:5000/allusers").then((res) => {
+        axios.get("https://fashionbrandbackend.vercel.app/allusers").then((res) => {
             if (res.data.status) {
                 setalready(res.data.ouruser)
             }
@@ -236,7 +236,7 @@ function Signup() {
 
         }
         else {
-            axios.post("http://localhost:5000/signup", { signupdata }).then((res) => {
+            axios.post("https://fashionbrandbackend.vercel.app/signup", { signupdata }).then((res) => {
 
                 Swal.fire({
                     title: "Signup Success",

@@ -13,7 +13,7 @@ function Dashboardproducts() {
     }, [])
 
     let allproducts = () => {
-        axios.get("http://localhost:5000/apiproduct").then((res) => {
+        axios.get("https://fashionbrandbackend.vercel.app/apiproduct").then((res) => {
             if (res.data.status) {
                 setproducts(res.data.ourproduct)
             }
@@ -23,7 +23,7 @@ function Dashboardproducts() {
 
     // delete product
     let deleteproduct = (data) => {
-        axios.post("http://localhost:5000/removeproduct", data).then((res) => {
+        axios.post("https://fashionbrandbackend.vercel.app/removeproduct", data).then((res) => {
             if (res.data.status) {
 
                 Swal.fire({
